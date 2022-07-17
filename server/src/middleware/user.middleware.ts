@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from "morgan";
+import cors from 'cors';
 
 export class UserMiddlewares {
   constructor() {
@@ -11,6 +12,7 @@ export class UserMiddlewares {
       morgan("dev"),
       express.json(),
       express.urlencoded({ extended: false }),
+      cors()
     ];
   }
 }
