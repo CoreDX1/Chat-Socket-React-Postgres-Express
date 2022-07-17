@@ -1,10 +1,7 @@
 import express,{Application} from 'express';
 import {ConfigServer} from './config/config'
 import { UserRouter } from './routes/user.router';
-import morgan from 'morgan';
 import { UserMiddlewares } from './middleware/user.middleware';
-
-
 class App extends ConfigServer{
     public app : Application = express();
     public port : number = this.getNumberEnv('PORT');

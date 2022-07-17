@@ -1,17 +1,18 @@
 import {Request, Response} from 'express'
-export class UserControllers{
+import pool from '../database'
+import { User } from '../interface/UserModel';
+export class UserControllers {
 
-    getUser(req : Request, res : Response){
+    async getUser(req : Request, res : Response){
+        const response = await pool.query('SELECT * FROM chat');
         res.status(200).json({
-            name : "Christian"
+            data : response.rows
         })
     }
 
     getData(req: Request, res: Response){
-        res.status(200).json({
-            name : "Carlos",
-            age : 12
-        })
+        const data: User = req.body;
+        console.log(data)
     }
 
 }

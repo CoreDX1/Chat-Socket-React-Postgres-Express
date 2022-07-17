@@ -10,6 +10,6 @@ export class UserRouter extends BaseRouter<UserControllers>{
 
     routes(): void {
         this.router.get('/user', this.controller.getUser )
-        this.router.get('/datos', this.controller.getData)
+        this.router.post('/user/create', this.controller.getData)
     }
 }

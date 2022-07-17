@@ -14,6 +14,7 @@ export abstract class ConfigServer {
         return Number(this.getEnvironmet(k));
     }
 
+
     public get nodeEnv(): string {
         return this.getEnvironmet('NODE_ENV')?.trim() || "";
     }
