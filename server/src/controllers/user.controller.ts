@@ -5,9 +5,9 @@ export class UserControllers {
 
     async getUser(req : Request, res : Response){
         const response = await pool.query('SELECT * FROM chat');
-        res.status(200).json({
-            data : response.rows
-        })
+        res.status(200).json(
+            response.rows
+        )
     }
 
     getData(req: Request, res: Response){

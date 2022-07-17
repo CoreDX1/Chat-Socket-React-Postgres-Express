@@ -1,19 +1,16 @@
-import { useState , useEffect } from "react"
+import { useState, useEffect } from "react";
+import Chat from './components/Chat/Chat';
 function App() {
-
-      const [data, setData] = useState([])
-
-      useEffect(() => {
-        fetch('http://127.0.0.1:8080/user/')
-        .then(res => res.json())
-        .then(setData)
-      },[])
+ 
 
   return (
     <>
-      <h1>Hello World</h1>
+    <div>
+      <h1>hello </h1>
+      <Chat />
+    </div>
     </>
   )
 }
 
-export default App
+export default App;
