@@ -1,6 +1,7 @@
 import React, { useState, useEffect, SetStateAction } from "react";
 import styled from 'styled-components'
 import axios, { AxiosResponse } from 'axios';
+import io from 'socket.io-client';
 
 interface Model{
   id: number;
@@ -9,8 +10,12 @@ interface Model{
   fecha : string;
 }
 
+
 function App() {
   const [data, setData] = useState<Model[]>([]);
+  const socket = io('http://127.0.0.1:8080');
+
+  socket.emit('connection', 'Hello World from client');
 
   useEffect(() => {
     const fetchData = async ()  => {
@@ -19,6 +24,7 @@ function App() {
     }
     fetchData();
   }, []);
+  
 
 
   const renderMessage = () => {
