@@ -4,7 +4,6 @@ import { UserRouter } from "./routes/user.router";
 import { UserMiddlewares } from "./middleware/user.middleware";
 import socketIO from "socket.io";
 import http from "http";
-import pool from "./database";
 class App extends ConfigServer {
   public app: Application = express();
   public port: number = this.getNumberEnv("PORT");
@@ -19,17 +18,17 @@ class App extends ConfigServer {
   constructor() {
     super();
     this.middleware();
-    this.start();
     this.socketIo();
+    this.start();
     this.app.use("/", this.routers());
   }
 
   public socketIo(): void {
     this.io.on("connection", (socket) => {
 
-      socket.on("mensaje", (info) => {
+      socket.on("messageEvent", (info) => {
         console.log(info);
-        this.io.sockets.emit("mensaje", info);
+        this.io.sockets.emit("messageEvent", info);
       });
 
     });

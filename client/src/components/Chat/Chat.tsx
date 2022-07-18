@@ -21,58 +21,56 @@ export const Chat = ({ usuario }: Prop) => {
   const [mensaje, setMensaje] = useState<string>("");
   const [mensajes, setMensajes] = useState<Model[]>([]);
 
-useEffect(() => {
-    const fetchData = async () => {
-      const result: AxiosResponse<ModelP[]> = await axios.get(
-        "http://127.0.0.1:8080/user/"
-      );
-      setData(result.data);
-    };
-    fetchData();
-  }, []);
-
   useEffect(() => {
     socket.emit("conectado", { usuario });
   }, [usuario]);
 
-  useEffect(() => {
-    socket.on("mensajes", (mensaje) => {
-      setMensajes([...data, mensaje]);
-    });
-    return () => {
-      socket.off();
-    };
-  }, [data]);
-  console.log('Esto es mensaje' + mensaje);
+  socket.on("messageEvent", (info) => {
+    setMensajes([...mensajes, info]);
+  });
+
+  const getMessages = async () => {
+    axios.get('http://192.168.1.190:8080/user/').then(res => {
+      setData(res.data)
+    })
+  }
+
+  React.useEffect(() => {
+    getMessages()
+  }, [])
 
   const submit = async (event: React.FormEvent<HTMLElement>) => {
     event.preventDefault();
     const id = data.length + 1;
     const fecha = new Date().toLocaleString();
-    socket.emit("mensaje", { usuario, mensaje, id , fecha });
-    const response = axios({
+    await axios({
       method: "POST",
-      url: "http://localhost:8080/user/create",
-      data : {
-        id : id,
-        usuario : usuario,
-        mensaje : mensaje,
-        fecha : fecha,
-      }
-    })
-    const array = await response;
-    console.log(array.data);
+      url: "http://192.168.1.190:8080/user/create",
+      data: {
+        id: id,
+        usuario: usuario,
+        mensaje: mensaje,
+        fecha: fecha,
+      },
+    });
+    socket.emit("messageEvent", { usuario, mensaje, id, fecha });
   };
 
-  
-
-  console.log(mensajes);
 
   return (
     <>
       <div>
         <div className="chat">
-          {mensajes.map((e, i) => (
+          {
+            data.map((item: ModelP, index) => {
+              return (
+                <div key={index}>
+                  <p>{item.usuario} : {item.mensaje}</p>
+                </div>
+              )
+            })
+          }
+          {mensajes.map((e : any, i : any) => (
             <div key={i}>
               <p>
                 {e.usuario} : {e.mensaje}

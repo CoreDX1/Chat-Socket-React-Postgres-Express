@@ -12,7 +12,7 @@ export class UserControllers {
 
     async getData(req: Request, res: Response){
         const {id , usuario, mensaje , fecha} = req.body;
-        const response = await pool.query('INSERT INTO chat (id, usuario, mensaje, fecha) VALUES ($1, $2, $3, $4)', [id, usuario, mensaje, fecha])
+        await pool.query('INSERT INTO chat (id, usuario, mensaje, fecha) VALUES ($1, $2, $3, $4)', [id, usuario, mensaje, fecha])
         res.send('ok')
     }
 
