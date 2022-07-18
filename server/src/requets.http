@@ -5,6 +5,8 @@ POST http://127.0.0.1:8080/user/create
 Content-Type: application/json
 
 {
-    "username": "test",
-    "password": "test"
+    "id": 4,
+    "usuario": "Carlos",
+    "mensaje": "Esto es una prueba",
+    "fecha": "2020-01-01"
 }
