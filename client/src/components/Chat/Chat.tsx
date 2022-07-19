@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import socket from "./Socket";
 import axios, { AxiosResponse } from "axios";
+import './Chat.scss';
 
 interface Prop {
   usuario: string;
@@ -30,14 +31,14 @@ export const Chat = ({ usuario }: Prop) => {
   });
 
   const getMessages = async () => {
-    axios.get('http://192.168.1.190:8080/user/').then(res => {
-      setData(res.data)
-    })
-  }
+    axios.get("http://192.168.1.190:8080/user/").then((res) => {
+      setData(res.data);
+    });
+  };
 
   React.useEffect(() => {
-    getMessages()
-  }, [])
+    getMessages();
+  }, []);
 
   const submit = async (event: React.FormEvent<HTMLElement>) => {
     event.preventDefault();
@@ -56,21 +57,20 @@ export const Chat = ({ usuario }: Prop) => {
     socket.emit("messageEvent", { usuario, mensaje, id, fecha });
   };
 
-
   return (
     <>
-      <div>
+      <div className="chat-container">
         <div className="chat">
-          {
-            data.map((item: ModelP, index) => {
-              return (
-                <div key={index}>
-                  <p>{item.usuario} : {item.mensaje}</p>
-                </div>
-              )
-            })
-          }
-          {mensajes.map((e : any, i : any) => (
+          {data.map((item: ModelP, index) => {
+            return (
+              <div key={index}>
+                <p>
+                  {item.usuario} : {item.mensaje}
+                </p>
+              </div>
+            );
+          })}
+          {mensajes.map((e: any, i: any) => (
             <div key={i}>
               <p>
                 {e.usuario} : {e.mensaje}
@@ -79,16 +79,13 @@ export const Chat = ({ usuario }: Prop) => {
           ))}
         </div>
         <form onSubmit={submit}>
-          <label htmlFor="">Escriba su mensaje</label>
+          <button><img src="https://popnaija.net/wp-content/uploads/2020/05/icon-send.png" alt="" /></button>
           <textarea
             name=""
             id=""
-            cols={30}
-            rows={10}
             value={mensaje}
             onChange={(e) => setMensaje(e.target.value)}
           ></textarea>
-          <button>Enviar</button>
         </form>
       </div>
     </>

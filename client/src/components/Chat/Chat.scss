@@ -1,0 +1,39 @@
+.chat-container{
+    background-color: #bf616a;
+    padding: 20px;
+    margin: 10px;
+    .chat{
+        background-color: rgb(255, 255, 255);
+        padding-left: 10px;
+        height: 500px;
+    }
+
+    form{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        button{
+            display: flex;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            align-items: center;
+            justify-content: center;
+            background-color: none;
+            cursor: pointer;
+            img {
+                width: 35px;
+                height: auto;
+            }
+        }
+        textarea{
+            margin: 10px;
+            border: 1px solid #bf616a;
+            border-radius: 5px;
+            padding: 10px;
+            resize: none;
+            height: 40px;
+            width: 89%;
+        }
+    }
+}
